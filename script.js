@@ -32,22 +32,37 @@ window.onkeydown = function (key) {
 		goLeft();
 		start();
 	}
+	if (key.keyCode == "39") {
+		goRight();
+		start();
+	}
+	if (key.keyCode == "38") {
+		goUp();
+		start();
+	}
+	if (key.keyCode == "40") {
+		goDown();
+		start();
+	}
 }
 
 function goLeft() {
-	//this loop wont move the first col on the left
+	//ce loop ira de droite a gauche, de haut en bas sans passer par la premiere col de gauche
 	for (var i = 0; i < 4; i++) {
 		for (var j = 1; j < 4; j++) {
 			if (square[grid[i][j]].innerHTML) {
-				//spot is a position in the grid that will be compare with the previous spot(spot - 1)
+				//spot = position que l'on comparera avec les cases qui lui sont adjacente a gauche
 				var spot = j;
-
+				//un while loop qui fera passera dans chaque positions en sens inverse et s'executera selon les conditions 
 				while (spot - 1 >= 0) {
+					//si une case est a cote d'une case vide, elle prend son spot et disparait de son spot precedent
 					if (square[grid[i][spot - 1]].innerHTML == "") {
 						square[grid[i][spot - 1]].innerHTML = square[grid[i][spot]].innerHTML;
 						square[grid[i][spot]].innerHTML = "";
+					//on diminue j a chaque tour pour passer dans tout les spots possible
 						spot--;
 					}
+					//si les 2 cases se touchent et sont identiques, celle qui a bouger se multiplie par 2 et prend sa nouvelle place et disparait de l'ancienne
 					else if (square[grid[i][spot -1]].innerHTML == square[grid[i][spot]].innerHTML) {
 						square[grid[i][spot - 1]].innerHTML *= 2;
 						square[grid[i][spot]].innerHTML = "";
@@ -61,5 +76,49 @@ function goLeft() {
 	}
 }
 
+function goRight() {
+	for (var i = 0; i < 4; i++) {
+		for (var j = 2; j >= 0; j--) {
+			if (square[grid[i][j]].innerHTML) {
+				var spot = j;
+				while (spot + 1 < 4) {
+					if (square[grid[i][spot + 1]].innerHTML == "") {
+						square[grid[i][spot + 1]].innerHTML = square[grid[i][spot]].innerHTML;
+						square[grid[i][spot]].innerHTML = "";
+						spot++;
+					}else if (square[grid[i][spot]].innerHTML == square[grid[i][spot + 1]].innerHTML) {
+						square[grid[i][spot + 1]].innerHTML *= 2;
+						square[grid[i][spot]].innerHTML = "";
+						break;
+					}
+					else break;
+				}
+			}
+		}
+	}
+}
 
 
+function goUp() {
+	for (var j = 0; j < 4; j++) {
+		for (var i = 1; i < 4; i++) {
+			if (square[grid[i][j]].innerHTML) {
+				var spot = i;
+				while (spot>0) {
+					if (square[grid[spot - 1][j]].innerHTML == "") {
+						square[grid[spot -1][j]].innerHTML = square[grid[spot][j]].innerHTML;
+						square[grid[spot][j]].innerHTML = "";
+						spot--;
+					}
+					else if (square[grid[spot][j]].innerHTML == square[grid[spot -1][j]].innerHTML) {
+						square[grid[spot -1][j]].innerHTML *=2;
+						square[grid[spot][j]].innerHTML = "";
+						break;
+					}
+					else break;
+				}
+			}
+		}
+	}
+
+}
