@@ -111,7 +111,7 @@ function goUp() {
 						spot--;
 					}
 					else if (square[grid[spot][j]].innerHTML == square[grid[spot -1][j]].innerHTML) {
-						square[grid[spot -1][j]].innerHTML *=2;
+						square[grid[spot -1][j]].innerHTML *= 2;
 						square[grid[spot][j]].innerHTML = "";
 						break;
 					}
@@ -121,4 +121,26 @@ function goUp() {
 		}
 	}
 
+}
+
+function goDown() {
+	for (var j = 0; j < 4; j++) {
+		for (var i = 2; i >= 0; i--) {
+			if (square[grid[i][j]].innerHTML) {
+				var spot = i;
+				while (spot + 1 < 4) {
+					if (square[grid[spot + 1][j]].innerHTML == "") {
+						square[grid[spot + 1][j]].innerHTML = square[grid[spot][j]].innerHTML;
+						square[grid[spot][j]].innerHTML = "";
+						spot++;
+					}else if (square[grid[spot][j]].innerHTML == square[grid[spot + 1][j]].innerHTML) {
+						square[grid[spot + 1][j]].innerHTML *= 2;
+						square[grid[spot][j]].innerHTML = "";
+						break;
+					}
+					else break;
+				}
+			}
+		}
+	}
 }
