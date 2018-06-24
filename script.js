@@ -16,35 +16,6 @@ function setUp() {
 	changeColor();
 }
 
-
-function over() {
-for (var i = 0; i < 4; i++) {
-		for (var j = 0; j < 4; j++) {
-			count++;
-				
-					if (square[grid[i][j]].innerHTML !== "")
-					{
-						countBox++
-					}
-                    if (countBox === 16) {
-						console.log("gameover");
-					}
-					else if (count === 16)
-					{
-						count = 0;
-						countBox = 0;
-					}
-
-					
-					
-					console.log(countBox);
-		}	
-	}
-}
-
-
-
-
 function start() {
 	var r = Math.floor(Math.random() * square.length);
 	if (square[r].innerHTML == "") {
@@ -70,29 +41,29 @@ window.onkeydown = function (key) {
 		goLeft();
 		start();
 		changeColor();
-		over();
+		checking();
 
 	}
 	if (key.keyCode == "39") {
 		goRight();
 		start();
 		changeColor();
-		over();
+		checking();
 		
 	}
 	if (key.keyCode == "38") {
 		goUp();
 		start();
 		changeColor();
-		over();
-		/*win()*/
+		checking();
+		
 	}
 	if (key.keyCode == "40") {
 		goDown();
 		start();
 		changeColor();
-		over();
-		/*win()*/
+		checking();
+		
 	}
 }
 
@@ -186,7 +157,8 @@ function goRight() {
 						square[grid[i][spot + 1]].innerHTML = square[grid[i][spot]].innerHTML;
 						square[grid[i][spot]].innerHTML = "";
 						spot++;
-					}else if (square[grid[i][spot]].innerHTML == square[grid[i][spot + 1]].innerHTML) {
+					}
+					else if (square[grid[i][spot]].innerHTML == square[grid[i][spot + 1]].innerHTML) {
 						square[grid[i][spot + 1]].innerHTML *= 2;
 						square[grid[i][spot]].innerHTML = "";
 						score.innerHTML = Number(square[grid[i][spot + 1]].innerHTML) + Number(score.innerHTML);
@@ -234,7 +206,8 @@ function goDown() {
 						square[grid[spot + 1][j]].innerHTML = square[grid[spot][j]].innerHTML;
 						square[grid[spot][j]].innerHTML = "";
 						spot++;
-					}else if (square[grid[spot][j]].innerHTML == square[grid[spot + 1][j]].innerHTML) {
+					}
+					else if (square[grid[spot][j]].innerHTML == square[grid[spot + 1][j]].innerHTML) {
 						square[grid[spot + 1][j]].innerHTML *= 2;
 						square[grid[spot][j]].innerHTML = "";
 						score.innerHTML = Number(square[grid[spot + 1][j]].innerHTML) + Number(score.innerHTML);
@@ -244,6 +217,27 @@ function goDown() {
 				}
 			}
 		}
+	}
+}
+
+function checking() {
+for (var i = 0; i < 4; i++) {
+		for (var j = 0; j < 4; j++) {
+			count++;
+			if (square[grid[i][j]].innerHTML == "2048") {
+				alert("YOU WIN!!!");
+			}	
+			if (square[grid[i][j]].innerHTML !== "") {
+				countBox++
+			}
+			if (countBox === 16) {
+				alert("gameover");
+			}
+			else if (count === 16) {
+				count = 0;
+				countBox = 0;
+			}
+		}	
 	}
 }
 
